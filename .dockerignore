@@ -1,0 +1,27 @@
+# Build outputs
+target/
+**/target/
+*.class
+*.jar
+*.war
+
+# Version control
+.git/
+.gitignore
+
+# IDE and tooling
+.idea/
+.vscode/
+*.iml
+.context/
+.cursorrules
+
+# OS and temp
+.DS_Store
+*.log
+*.tmp
+*.swp
+*~
+
+# Test and docs (optional: remove if you want to run tests in Docker)
+# Keeping src so we have the example; excluding .git and target is enough

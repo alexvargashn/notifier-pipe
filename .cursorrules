@@ -1,0 +1,50 @@
+# notifier-pipe — Cursor Rules (Challenge Constraints)
+
+## Project Nature
+- This is a Java LIBRARY, not an application.
+- Keep the core framework-agnostic and usable from any Java project.
+
+## Hard Prohibitions (DO NOT)
+- Do NOT use frameworks that force architecture (e.g., Spring, Quarkus, Micronaut).
+- Do NOT use DI containers or framework-specific annotations (@Component, @Service, etc.).
+- Do NOT use external configuration files (YAML, .properties, application.conf, etc.).
+- Do NOT implement real HTTP/provider integrations; simulate sending instead.
+
+## Required (MUST)
+- Java version: 21 or higher.
+- Build tool: Maven.
+- Mandatory channels supported: Email, Push Notification, SMS.
+- Apply SOLID principles (focus on OCP, DIP, SRP).
+- Provide unit tests using mocks/stubs/simulations (no real network calls).
+- Provide a README.md for another developer:
+  - Installation (Maven/Gradle)
+  - Quick Start
+  - Configuration via Java code
+  - Supported providers (conceptually)
+  - API reference
+  - Security best practices for credentials
+
+## Allowed (OK to use)
+- Utility libraries that do NOT force architecture:
+  - Lombok (e.g., @Getter, @Builder)
+  - Jackson/Gson
+  - SLF4J
+  - Apache Commons
+- Logging/console output for simulated sending.
+
+## Design Expectations (DO)
+- Provide a unified interface/entry point for sending notifications across channels.
+- Make provider switching transparent to library consumers.
+- Make it easy to add new channels/providers without modifying existing core code.
+
+## Optional (Nice-to-have)
+- Dockerfile for demo execution
+- Async sending using CompletableFuture (including batch)
+- Validation (email/phone)
+- Templates
+- Notification status events (pub/sub or similar)
+
+## Output Quality
+- Prefer clean, minimal public API (stable and hard to break).
+- Keep examples small and runnable; avoid framework setup.
+- Do not introduce complexity unless required by the challenge.
