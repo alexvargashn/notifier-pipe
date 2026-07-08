@@ -5,7 +5,7 @@
 # -----------------------------------------------------------------------------
 # Stage 1: Build the library with Maven
 # -----------------------------------------------------------------------------
-FROM eclipse-temurin:21-jdk AS builder
+FROM maven:3.9-eclipse-temurin-21 AS builder
 
 WORKDIR /build
 

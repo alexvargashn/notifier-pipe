@@ -69,6 +69,23 @@ final class StubProviders {
         };
     }
 
+    /** Records each EmailNotification sent with a custom provider name in the receipt. */
+    static NotificationProvider<EmailNotification> namedEmailStub(
+            List<EmailNotification> received, String providerName) {
+        return new NotificationProvider<EmailNotification>() {
+            @Override
+            public Class<EmailNotification> supportedType() {
+                return EmailNotification.class;
+            }
+
+            @Override
+            public SendReceipt send(EmailNotification notification) {
+                received.add(notification);
+                return stubReceipt(providerName);
+            }
+        };
+    }
+
     /** Fails every send with a DeliveryException (simulates delivery failure). */
     static NotificationProvider<EmailNotification> failingEmailStub() {
         return new NotificationProvider<>() {
