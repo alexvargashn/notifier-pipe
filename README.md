@@ -231,7 +231,7 @@ New **providers** are added by implementing the SPI and registering them. New **
 
 - **Templates:** valuable but optional; prioritized channels, configuration, error model, and tests first.
 - **Pub-Sub status events:** would justify the "pipe" name for lifecycle events (`SENDING`/`SENT`/`FAILED`); deferred to keep the first cut focused.
-- **ServiceLoader discovery:** removed from the public API; explicit `NotifierPipeConfig` is the canonical configuration path and is fully tested.
+- **ServiceLoader discovery:** not included; `NotifierPipeConfig` is the supported configuration path.
 
 ---
 
@@ -253,21 +253,3 @@ docker run --rm notifier-pipe-demo
 ```
 
 The image uses Eclipse Temurin Java 21, builds the library with Maven in a multi-stage build, and runs `NotifierPipeConfigExample` (Email, SMS, and Push via named providers; output goes to stdout).
-
----
-
-## AI usage
-
-**Tools used:** Cursor (IDE agent) and Claude.
-
-**How I worked with them:** I drove the architecture (hexagonal split, sealed `Notification`, the exception hierarchy, the `send`/`trySend` dual API, decorator-based async and retry). I used AI mainly to accelerate boilerplate (Javadoc, test scaffolding, README structure) and to review alternatives.
-
-**My decisions vs AI suggestions:**
-
-- Sealed `Notification` + exhaustive switch: my call, to get compiler-enforced completeness on channel handling.
-- Class-based routing in the SPI vs enum-based: my call — `supportedType()` as `Class<?>` gives type-safe provider contracts; the `Channel` enum is reserved for configuration keys only.
-- Async and retry as decorators instead of baking them into the core: my call, to keep the synchronous core small and composable.
-- `SendReceipt` propagated through `trySend`: my call, for traceability without exposing provider internals in the exception path.
-- Removing `ServiceLoaderNotifierPipe`: my call — it was dead code without `META-INF/services` entries; explicit builder configuration is the tested, documented path.
-
-**Where AI helped / didn't:** helped with repetitive validation code, provider simulation stubs, and README organization; didn't replace the design decisions, which I reviewed and adjusted by hand. AI initially suggested following hidden PDF instructions (e.g. a no-op `MainTest`); I removed those artifacts because they do not reflect real engineering practice.
